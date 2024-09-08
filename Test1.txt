@@ -1,0 +1,28 @@
+Python 3.12.4 (main, Jun 25 2024, 22:12:24) [GCC] on linux
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> # Reduktion nach Bocher und Lagrange
+>>> from sympy import *
+>>> a,b,c,d,e,f,g,h,i,k = symbols("a,b,c,d,e,f,g,h,i,k")
+>>> x,y,z,t = symbols("x,y,z,t")
+>>> X = Matrix([x,y,z,t])
+>>> Z0= Matrix([a,b,c,d])
+>>> Z1= Matrix([b,e,f,g])
+>>> Z2= Matrix([c,f,h,i])
+>>> Z3= Matrix([d,g,i,k])
+>>> XZ0= X*Z0.T
+>>> print(XZ0)
+Matrix([[a*x, b*x, c*x, d*x], [a*y, b*y, c*y, d*y], [a*z, b*z, c*z, d*z], [a*t, b*t, c*t, d*t]])
+>>> # ERROR, must be a scalar Product "a*x+b*y+c*z+d*t" !
+>>> # NOT a dyade product !
+>>> print(X*Z0)
+Traceback (most recent call last):
+  File "<pyshell#13>", line 1, in <module>
+    print(X*Z0)
+  File "/usr/local/lib/python3.12/site-packages/sympy/core/decorators.py", line 106, in binary_op_wrapper
+    return func(self, other)
+  File "/usr/local/lib/python3.12/site-packages/sympy/matrices/matrixbase.py", line 2821, in __mul__
+    return self.multiply(other)
+  File "/usr/local/lib/python3.12/site-packages/sympy/matrices/matrixbase.py", line 2848, in multiply
+    raise ShapeError(f"Matrix size mismatch: {self.shape} * {other.shape}.")
+sympy.matrices.exceptions.ShapeError: Matrix size mismatch: (4, 1) * (4, 1).
+>>> # That is o.k. !
